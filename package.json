@@ -1,6 +1,6 @@
 {
   "name": "tiber",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "a straightforward way of building node apis",
   "main": "index.js",
   "scripts": {
