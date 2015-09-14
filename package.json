@@ -1,0 +1,40 @@
+{
+  "name": "tiber",
+  "version": "0.0.1",
+  "description": "a straightforward way of building node apis",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "bin": {
+    "tiber": "./bin/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dancali/tiber.git"
+  },
+  "author": "Dan Calinescu",
+  "bugs": {
+    "url": "https://github.com/dancali/tiber/issues"
+  },
+  "homepage": "https://github.com/dancali/tiber",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.9.2",
+    "commander": "^2.8.1",
+    "cors": "^2.7.1",
+    "express": "^4.10.2",
+    "express-validator": "^2.8.0",
+    "fs-extra": "^0.24.0",
+    "js-yaml": "^3.3.0",
+    "mandrill-api": "^1.0.41",
+    "pm2": "^0.14.7",
+    "string": "^2.2.0",
+    "validator": "^3.22.1"
+  },
+  "devDependencies": {
+    "chai": "^3.2.0",
+    "mocha": "^2.2.5",
+    "sinon": "^1.16.1"
+  }
+}
