@@ -1,53 +1,34 @@
-// Utilities
-var util = require ('util');
+module.exports = {
+  name: 'messages',
 
-// Used for email communication
-var mailer = require ('../util/mailer');
+  schema: {
+    name: { type: "TEXT", required: true },
+    email: { type: "EMAIL", required: true },
+    message: { type: "TEXT", required: true },
+    context: { type: "TEXT", required: true }
+  },
 
-// Create the plain router
-var router = require ('express').Router();
+  get: function(request, response, list) {
+    response.json({success: true, data: list});
+  },
 
-// Router analytics
-router.use (function(req, res, next) {
-  // console.log('[%d] %s %s %s %s %s', Date.now(), req.method, req.url, req.path, req.originalUrl, req.body);
-  next();
-});
+  post: function(request, response) {
+    var subject = "New @" + request.body.context + " message";
+    var body    = {
+      text: "From: " + request.body.email + " (" + request.body.name + ")\n\n" + request.body.message,
+      html: "From: <b>" + request.body.email + " (" + request.body.name + ")</b><br><br>" + "<p>" + request.body.message + "</p>"
+    }
 
-// User creation
-router.route("/").post (function (req, res) {
+    var mailer = require ('../util/mandrill');
 
-  // Check the request payload
-  req.checkBody('email', 'Email is required').notEmpty();
-  req.checkBody('email', 'Email is not valid').isEmail();
-  req.checkBody('name', 'Name is required').notEmpty();
-  req.checkBody('context', 'Context is required').notEmpty();
-  req.checkBody('message', 'Message is required').notEmpty();
+    mailer.send(subject, body.html, body.text, function(result) {
+      response.json({success: true, data: result});
+    }, function(error) {
+      response.json({error: error});
+    });
+  },
 
-  // Make sure the payload is valid
-  var errors = req.validationErrors();
-  if (errors) {
-    res.json({error: "Invalid request", data:errors});
-    return;
+  request: function(request, response) {
+    // console.log('[%d] %s %s', Date.now(), request.method, request.originalUrl);
   }
-
-  // Construct the message as an email
-  var email   = req.body.email;
-  var context = req.body.context;
-  var subject = "New @" + context + " message";
-  var message = req.body.message;
-  var name    = req.body.name;
-  var body    = {
-    text: "From: " + email + " (" + name + ")\n\n" + message,
-    html: "From: <b>" + email + " (" + name + ")</b><br><br>" + "<p>" + message + "</p>"
-  }
-
-  // Email the message
-  mailer.send(subject, body.html, body.text, function(result) {
-    res.json({success: true, data: result});
-  }, function(error) {
-    res.json({error: $error});
-  });
-});
-
-// Export the router
-module.exports = router;
+}
