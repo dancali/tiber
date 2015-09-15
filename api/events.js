@@ -10,7 +10,11 @@ module.exports = {
   },
 
   get: function(request, response, list) {
-    response.json({success: true, data: list});
+    var all = [];
+    list.forEach(function(item){
+      all.push({start: item.start, end: item.end});
+    });
+    response.json({success: true, data: all});
   },
 
   post: function(request, response) {
