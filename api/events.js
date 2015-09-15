@@ -18,7 +18,7 @@ module.exports = {
   },
 
   post: function(request, response) {
-    var subject = "New signup [" + request.name " @ " + request.start + "]";
+    var subject = "New signup [" + request.name + " @ " + request.start + "]";
     var body    = {
       text: "Name: " + request.name + " (" + request.email + ")\n\n" + request.start + " - " + request.end,
       html: "Name: <b>" + request.name + " (" + request.email + ")</b><br><br>" + "<p>" + request.start + " - " request.end + "</p>"
