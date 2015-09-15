@@ -25,7 +25,6 @@ module.exports = {
     }
 
     var mailer = require ('../util/mandrill');
-
     mailer.send(subject, body.html, body.text, function(result) {
       response.json({success: true, data: result});
     }, function(error) {
