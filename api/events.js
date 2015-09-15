@@ -18,7 +18,19 @@ module.exports = {
   },
 
   post: function(request, response) {
-    response.json({success: true});
+    var subject = "New signup [" + request.name " @ " + request.start + "]";
+    var body    = {
+      text: "Name: " + request.name + " (" + request.email + ")\n\n" + request.start + " - " + request.end,
+      html: "Name: <b>" + request.name + " (" + request.email + ")</b><br><br>" + "<p>" + request.start + " - " request.end + "</p>"
+    }
+
+    var mailer = require ('../util/mandrill');
+
+    mailer.send(subject, body.html, body.text, function(result) {
+      response.json({success: true, data: result});
+    }, function(error) {
+      response.json({error: error});
+    });
   },
 
   request: function(request, response) {
