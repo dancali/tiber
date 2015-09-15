@@ -21,7 +21,7 @@ module.exports = {
     var subject = "New signup [" + request.body.name + " @ " + request.body.start + "]";
     var body    = {
       text: "Name: " + request.body.name + " (" + request.body.email + ")\n\n" + request.body.start + " - " + request.body.end,
-      html: "Name: <b>" + request.body.name + " (" + request.body.email + ")</b><br><br>" + "<p>" + request.body.start + " - " + request.body.body.end + "</p>"
+      html: "Name: <b>" + request.body.name + " (" + request.body.email + ")</b><br><br>" + "<p>" + request.body.start + " - " + request.body.end + "</p>"
     }
 
     var mailer = require ('../util/mandrill');
