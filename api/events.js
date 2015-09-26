@@ -15,7 +15,7 @@ module.exports = {
     list.forEach(function(item){
       all.push({start: item.start, end: item.end});
     });
-    response.json({success: true, data: all});
+    response.json(all);
   },
 
   post: function(request, response) {
