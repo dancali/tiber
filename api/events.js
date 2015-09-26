@@ -3,6 +3,7 @@ module.exports = {
 
   schema: {
     name: { type: "TEXT", required: true },
+    org: { type: "TEXT", required: true },
     email: { type: "EMAIL", required: true },
     phone: { type: "PHONE", required: true },
     start: { type: "DATE", required: true },
@@ -18,10 +19,20 @@ module.exports = {
   },
 
   post: function(request, response) {
-    var subject = "New signup [" + request.body.name + " @ " + request.body.start + "]";
-    var body    = {
-      text: "Name: " + request.body.name + " (" + request.body.email + ")\n\n" + request.body.start + " - " + request.body.end,
-      html: "Name: <b>" + request.body.name + " (" + request.body.email + ")</b><br><br>" + "<p>" + request.body.start + " - " + request.body.end + "</p>"
+    var subject = "";
+    var body    = {text: "", html: ""};
+    var utils   = require('../util/core');
+
+    if (request.body instanceof Array) {
+      subject = request.body.length + " new signups";
+      request.body.forEach(function(element){
+        body.text += "---\n\nName: " + element.name + " (" + element.email + ")\n\n" + utils.niceInterval(element.start, element.end);
+        body.html += "<br><hr><br>Name: <b>" + element.name + " (" + element.email + ")</b><br><br>" + "<p>" +  utils.niceInterval(element.start, element.end) + "</p>";
+      });
+    } else {
+      subject   = "New signup [" + request.body.name + "]";
+      body.text = "Name: " + request.body.name + " (" + request.body.email + ")\n\n" +  utils.niceInterval(request.body.start, request.body.end);
+      body.html = "Name: <b>" + request.body.name + " (" + request.body.email + ")</b><br><br>" + "<p>" +  utils.niceInterval(request.body.start, request.body.end) + "</p>";
     }
 
     var mailer = require ('../util/mandrill');

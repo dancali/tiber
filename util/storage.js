@@ -30,7 +30,7 @@ var storage = {
     db.close();
   },
 
-  fields: function(controller, request) {
+  fields: function(controller, resource) {
     // Compound the fields
     var result = {
       fields     : [],
@@ -42,8 +42,8 @@ var storage = {
       var type  = controller.schema[field].type;
       var value;
 
-      if (request) {
-        value = request.body[field];
+      if (resource) {
+        value = resource[field];
       }
 
       if (type === 'EMAIL' || type === 'DATE' || type === 'PHONE') {
@@ -66,14 +66,14 @@ var storage = {
     return result;
   },
 
-  save: function(controller, request) {
+  save: function(controller, resource) {
 
     // Create the db file if necessary
     var db = storage.db();
 
     db.serialize(function() {
       // Create the table if necessary
-      var fields = storage.fields(controller, request);
+      var fields = storage.fields(controller, resource);
       db.run("CREATE TABLE IF NOT EXISTS " + controller.name + " (id INTEGER PRIMARY KEY,timestamp TEXT," + fields.fields + ")");
 
       // Insert a row

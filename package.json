@@ -28,10 +28,11 @@
     "fs-extra": "^0.24.0",
     "js-yaml": "^3.3.0",
     "mandrill-api": "^1.0.41",
+    "moment": "^2.10.6",
     "pm2": "^0.14.7",
     "sqlite3": "^3.1.0",
     "string": "^2.2.0",
-    "validator": "^3.22.1"
+    "validator": "^3.43.0"
   },
   "devDependencies": {
     "chai": "^3.2.0",
