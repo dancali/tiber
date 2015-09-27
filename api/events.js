@@ -14,7 +14,7 @@ module.exports = {
   get: function(request, response, list) {
     var all = [];
     list.forEach(function(item){
-      all.push({start: item.start, end: item.end});
+      all.push({start: item.start, end: item.end, weight: item.weight});
     });
     response.json(all);
   },
