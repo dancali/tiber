@@ -46,6 +46,10 @@ var storage = {
         value = resource[field];
       }
 
+      if (type === 'NUMBER') {
+        type = 'INTEGER';
+      }
+
       if (type === 'EMAIL' || type === 'DATE' || type === 'PHONE') {
         type = 'TEXT';
       }

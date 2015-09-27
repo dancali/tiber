@@ -7,6 +7,7 @@ module.exports = {
     email: { type: "EMAIL", required: true },
     phone: { type: "PHONE", required: true },
     start: { type: "DATE", required: true },
+    weight: { type: "NUMBER", required: true},
     end: { type: "DATE", required: true }
   },
 
