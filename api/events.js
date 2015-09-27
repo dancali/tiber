@@ -27,13 +27,13 @@ module.exports = {
     if (request.body instanceof Array) {
       subject = request.body.length + " new signups";
       request.body.forEach(function(element){
-        body.text += "---\n\nName: " + element.name + " (" + element.email + ")\n\n" + utils.niceInterval(element.start, element.end);
-        body.html += "<br><hr><br>Name: <b>" + element.name + " (" + element.email + ")</b><br><br>" + "<p>" +  utils.niceInterval(element.start, element.end) + "</p>";
+        body.text += "---\n\nName: " + element.name + "\n\nPeople: " + element.weight + "\n\nEmail: " + element.email + "\n\nInterval: " + utils.niceInterval(element.start, element.end);
+        body.html += "<br><hr><br>Name: " + element.name + "<br>People: " + element.weight + "<br>Email: " + element.email + "<br>" + "Interval: " +  utils.niceInterval(element.start, element.end);
       });
     } else {
       subject   = "New signup [" + request.body.name + "]";
-      body.text = "Name: " + request.body.name + " (" + request.body.email + ")\n\n" +  utils.niceInterval(request.body.start, request.body.end);
-      body.html = "Name: <b>" + request.body.name + " (" + request.body.email + ")</b><br><br>" + "<p>" +  utils.niceInterval(request.body.start, request.body.end) + "</p>";
+      body.text = "Name: " + request.body.name + "\n\nPeople: " + request.body.weight + "\n\nEmail: " + request.body.email + "\n\nInterval: " +  utils.niceInterval(request.body.start, request.body.end);
+      body.html = "Name: " + request.body.name + "<br>People: " + request.body.weight + "<br>Email: " + request.body.email + "<br>" + "Interval: " +  utils.niceInterval(request.body.start, request.body.end);
     }
 
     var mailer = require ('../util/mandrill');
